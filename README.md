@@ -2,7 +2,7 @@
 DevOpsCloudOps is a dummy project designed to simulate real-world DevOps and Cloud practices by implementing a fully automated CI/CD pipeline, Infrastructure as Code (IaC), and monitoring setup on Azure Cloud. 
 
 The repository is structured as follows:
-📂 infrastructure/ – Terraform and Ansible scripts for infrastructure provisioning.
+📂 infrastructure/ – Terraform and Ansible scripts for infrastructure provisioning.  
 📂 src/ – Source code for the sample application.
 📂 ci-cd/ – CI/CD pipeline configuration (GitHub Actions/Jenkins).
 📂 monitoring/ – Configuration files for Prometheus & Grafana.
