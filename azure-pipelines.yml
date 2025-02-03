@@ -3,8 +3,9 @@ trigger:
     include:
       - main
 
+# Use self-hosted agent pool
 pool:
-  name: Default
+  name: Default  # Ensure the agent is assigned to this pool
 
 steps:
   # Install Python
@@ -13,25 +14,20 @@ steps:
       versionSpec: '3.x'
       addToPath: true
 
-  # Set Working Directory
-  - script: |
-      cd src
-    displayName: 'Change working directory to src'
-
-  # Install Dependencies (Windows & Linux/MacOS Compatible)
+  # Install Dependencies (Windows & Linux Compatible)
   - script: |
       python -m venv venv
-      # Activate virtual environment correctly based on OS
-      if [ "$AGENT_OS" == "Windows_NT" ]; then
+      if "%AGENT_OS%" == "Windows_NT" (
         call venv\Scripts\activate
-      else
+      ) else (
         source venv/bin/activate
-      fi
-      pip install -r requirements.txt
+      )
+      pip install -r src/requirements.txt
+    shell: cmd  # Ensures the correct shell is used in Windows
     displayName: 'Install dependencies'
 
   # Run Flask App
   - script: |
-      python app.py &
-    workingDirectory: src
+      python src/app.py &
+    shell: cmd
     displayName: 'Run Flask App'
