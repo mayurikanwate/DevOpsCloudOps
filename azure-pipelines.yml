@@ -4,7 +4,7 @@ trigger:
       - main
 
 pool:
-  vmImage: 'ubuntu-latest'  # Use Ubuntu agent
+  name: Default
 
 steps:
   # Install Python
