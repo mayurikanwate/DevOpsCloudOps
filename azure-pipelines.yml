@@ -1,10 +1,5 @@
-trigger:
-  branches:
-    include:
-      - main  # Run pipeline when code is pushed to 'main' branch
-
 pool:
-  vmImage: 'ubuntu-latest'  # Use an Ubuntu agent
+  name: Default  # Use the agent pool where your self-hosted agent is running
 
 steps:
   - task: UsePythonVersion@0
