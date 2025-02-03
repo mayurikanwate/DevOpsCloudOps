@@ -1,19 +1,37 @@
+trigger:
+  branches:
+    include:
+      - main
+
 pool:
-  name: Default  # Use the agent pool where your self-hosted agent is running
+  vmImage: 'ubuntu-latest'  # Use Ubuntu agent
 
 steps:
+  # Install Python
   - task: UsePythonVersion@0
     inputs:
       versionSpec: '3.x'
       addToPath: true
 
+  # Set Working Directory
+  - script: |
+      cd src
+    displayName: 'Change working directory to src'
+
+  # Install Dependencies (Windows & Linux/MacOS Compatible)
   - script: |
       python -m venv venv
-      source venv/bin/activate
-      pip install -r src/requirements.txt
+      # Activate virtual environment correctly based on OS
+      if [ "$AGENT_OS" == "Windows_NT" ]; then
+        call venv\Scripts\activate
+      else
+        source venv/bin/activate
+      fi
+      pip install -r requirements.txt
     displayName: 'Install dependencies'
 
+  # Run Flask App
   - script: |
-      source venv/bin/activate
-      python src/app.py &
+      python app.py &
+    workingDirectory: src
     displayName: 'Run Flask App'
