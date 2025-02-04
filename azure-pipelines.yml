@@ -3,11 +3,15 @@ trigger:
     include:
       - main
 
-# Use self-hosted agent pool
+# Use self-hosted agent
 pool:
   name: Default  # Ensure the agent is assigned to this pool
 
 steps:
+  # Checkout the code
+  - checkout: self
+    displayName: 'Checkout Repository'
+
   # Install Python
   - task: UsePythonVersion@0
     inputs:
@@ -18,16 +22,14 @@ steps:
   - script: |
       python -m venv venv
       if "%AGENT_OS%" == "Windows_NT" (
-        call venv\Scripts\activate
+        venv\Scripts\activate
       ) else (
         source venv/bin/activate
       )
       pip install -r src/requirements.txt
-    shell: cmd  # Ensures the correct shell is used in Windows
-    displayName: 'Install dependencies'
+    displayName: 'Install Dependencies'
 
   # Run Flask App
   - script: |
-      python src/app.py &
-    shell: cmd
+      python src/app.py
     displayName: 'Run Flask App'
