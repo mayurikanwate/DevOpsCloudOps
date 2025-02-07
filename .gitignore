@@ -1,0 +1,20 @@
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore Python dependencies
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore Node.js dependencies
+node_modules/
+package-lock.json
+
+# Ignore Terraform files
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Ignore Ansible logs
+*.retry
